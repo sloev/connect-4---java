@@ -14,6 +14,7 @@ public class Grid {
     private int ysize;
     private int max;
     private int[][] matrix;
+    int cells_left = 0;
 
     public Grid() {
         xsize = 7;
@@ -24,6 +25,7 @@ public class Grid {
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
                 matrix[i][j] = 0;
+                cells_left++;
             }
         }
     }
@@ -62,6 +64,7 @@ public class Grid {
 
     public boolean set_and_check(int x, int y, int player) {
         matrix[x][y] = player;
+        cells_left--;
         return check_one(x, y, 0, 1, player) //syd
                 || check_one(x, y, -1, 1, player) //sydvest
                 || check_one(x, y, -1, 0, player) //vest
@@ -69,6 +72,10 @@ public class Grid {
                 || check_one(x, y, 1, -1, player) //nordøst
                 || check_one(x, y, 1, 0, player) //øst
                 || check_one(x, y, 1, 1, player);//sydøst
+    }
+
+    public boolean draw_game() {
+        return cells_left == 0;
     }
 
     private boolean check_one(int x, int y, int dx, int dy, int player) {

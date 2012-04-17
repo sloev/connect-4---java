@@ -35,7 +35,9 @@ public class Connect4 {
                         int y = grid.find_y(x);
                         if (y != -1) {
                             if (grid.set_and_check(x, y, player)) {
-                                state++;
+                                state = 1;
+                            } else if (grid.draw_game()) {
+                                state = 2;
                             } else {
                                 player = changeplayer(player, max_players);
                             }
@@ -50,12 +52,31 @@ public class Connect4 {
                 case 1:
 
                     grid.display();
-                    System.out.println("winner is player " + player
-                            + "\n\nPlay again?\n"
+                    if (grid.draw_game()) {
+                    } else {
+                        System.out.println("\nwinner is player " + player
+                                + "\nPlay again?\n"
+                                + "press 0 for new game\n"
+                                + "press anything else to quit");
+                    }
+                    if (input.nextInt() == 0) {
+                        state = 0;
+                        grid = new Grid();
+                        player = 1;
+                    } else {
+                        state = -1;
+                    }
+
+                    break;
+                case 2:
+
+                    grid.display();
+                    System.out.println("\ndraw game"
+                            + "\nPlay again?\n"
                             + "press 0 for new game\n"
                             + "press anything else to quit");
-                    int choice = input.nextInt();//choice in menu
-                    if (choice == 0) {
+
+                    if (input.nextInt() == 0) {
                         state = 0;
                         grid = new Grid();
                         player = 1;
@@ -66,7 +87,6 @@ public class Connect4 {
                     break;
             }
         }
-
     }
 
     public static int changeplayer(int player, int max_players) {
