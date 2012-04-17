@@ -90,6 +90,6 @@ public class Grid {
     }
 
     private boolean valid(int x, int y) {
-        return x > 0 && x < xsize && y > 0 && y < ysize; //if the bounds are set to be >0 only then first row and collumn doesnt work
+        return x >= 0 && x < xsize && y >= 0 && y < ysize; //if the bounds are set to be >0 only then first row and collumn doesnt work
     }
 }
