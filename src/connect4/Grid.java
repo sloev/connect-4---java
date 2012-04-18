@@ -17,8 +17,8 @@ public class Grid {
     int cells_left = 0;
 
     public Grid() {
-        xsize = 7;
-        ysize = 6;
+        xsize = 6;
+        ysize = 7;
         max = 4;
 
         matrix = new int[xsize][ysize];
@@ -98,5 +98,13 @@ public class Grid {
 
     private boolean valid(int x, int y) {
         return x >= 0 && x < xsize && y >= 0 && y < ysize; //if the bounds are set to be >0 only then first row and collumn doesnt work
+    }
+
+    public int changeplayer(int player, int max_players) {
+        player++;
+        if (player > max_players) {
+            return 1;
+        }
+        return player;
     }
 }
