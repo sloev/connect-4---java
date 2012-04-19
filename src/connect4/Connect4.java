@@ -21,23 +21,30 @@ public class Connect4 {
             switch (state) {
                 case 0:
                     System.out.println("player " + player + "'s turn");
-                    grid.display();
-                    int x = 0;
-                    try {
+                    grid.display();//print out the grid
+                    int x = 0;// xposition is set to 0 before taking user input
+                    try {// tries to do get an int from the user
                         x = input.nextInt();
+                        if (x <= 0 || x > grid.get_xsize()) {
+                            throw new Exception();
+                        }
                     } catch (Exception exc) {
-                        System.out.println("not a number between 1 and " + grid.get_xsize());
+                        System.out.println("not a number between 1 and " 
+                                + grid.get_xsize());
                         input.nextLine();
                     }
+                    //checks if user input is within range
                     if (x > 0 && x < grid.get_xsize() + 1) {
                         x--;
-                        int y = grid.find_y(x);
+                        int y = grid.find_y(x);//check for space in collumn
                         if (y != -1) {
+                            //sets a place to current player
                             if (grid.set_and_check(x, y, player)) {
                                 state = 1;
-                            } else if (grid.draw_game()) {
+                            } else if (grid.draw_game()) {//checks for drawgame
                                 state = 2;
                             } else {
+                                //change player
                                 player = grid.changeplayer(player, max_players);
                             }
                         } else {
@@ -45,14 +52,14 @@ public class Connect4 {
                         }
                     }
                     break;
-                case 1:
+                case 1://prints endgame with winner
                     grid.display();
                     System.out.println("\nwinner is player " + player
                             + "\nPlay again?\n"
                             + "press 0 for new game\n"
                             + "press anything else to quit");
                     int choice = -1;
-                    try {
+                    try {//checks for user input == int == 0
                         choice = input.nextInt();
                     } catch (Exception exc) {
                         System.out.println("Quitting");
@@ -64,20 +71,24 @@ public class Connect4 {
                         player = 1;
                     }
                     break;
-                case 2:
+                case 2://prints end game eith draw game
                     grid.display();
                     System.out.println(
                             "\ndraw game"
                             + "\nPlay again?\n"
                             + "press 0 for new game\n"
                             + "press anything else to quit");
-                    if (input.nextInt()
-                            == 0) {
+                    choice = -1;
+                    try {//checks for user input == int == 0
+                        choice = input.nextInt();
+                    } catch (Exception exc) {
+                        System.out.println("Quitting");
+                        state = -1;
+                    }
+                    if (choice == 0) {
                         state = 0;
                         grid = new Grid();
                         player = 1;
-                    } else {
-                        state = -1;
                     }
                     break;
             }

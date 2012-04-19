@@ -9,10 +9,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 
-/**
- *
- * @author jgjpro
- */
 public class GridTest {
 
     public GridTest() {
@@ -36,8 +32,6 @@ public class GridTest {
         int expResult = 6;
         int result = instance.get_xsize();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -51,12 +45,10 @@ public class GridTest {
         int expResult = 6;//ysize is 7 but the array address is 6
         int result = instance.find_y(x);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
-     * Test of set_and_check method, of class Grid.
+     * Test of set_and_check method with diagonal win, of class Grid.
      */
     @Test
     public void testSet_and_check_diagonal() {
@@ -79,10 +71,11 @@ public class GridTest {
         boolean expResult = true;
         boolean result = win;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
+    /**
+     * Test of set_and_check method with horizontal win, of class Grid.
+     */
     @Test
     public void testSet_and_check_horizontal() {
         System.out.println("set_and_check - horizontal");
@@ -105,10 +98,11 @@ public class GridTest {
         boolean expResult = true;
         boolean result = win;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
+    /**
+     * Test of set_and_check method with vertical win, of class Grid.
+     */
     @Test
     public void testSet_and_check_vertical() {
         System.out.println("set_and_check - vertical");
@@ -130,8 +124,6 @@ public class GridTest {
         boolean expResult = true;
         boolean result = win;
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -165,12 +157,9 @@ public class GridTest {
                 }
             }
         }
-
         boolean expResult = true;
         boolean result = instance.draw_game();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -186,7 +175,5 @@ public class GridTest {
         int expResult = 2;
         int result = instance.changeplayer(player, max_players);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 }

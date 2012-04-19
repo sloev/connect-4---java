@@ -30,11 +30,11 @@ public class Grid {
         }
     }
 
-    public int get_xsize() {
+    public int get_xsize() {//returns the xsize
         return xsize;
     }
 
-    public void display() {
+    public void display() {//prints out the matrix board
         for (int i = -1; i < ysize; i++) {
             for (int j = 0; j < xsize; j++) {
                 if (i < 0) {
@@ -52,7 +52,7 @@ public class Grid {
         }
     }
 
-    public int find_y(int x) {
+    public int find_y(int x) {//checks for room in collumn and returns free spot.
         int y = -1;
         for (int i = 0; i < ysize; i++) {
             if (matrix[x][i] == 0) {
@@ -62,7 +62,7 @@ public class Grid {
         return y;
     }
 
-    public boolean set_and_check(int x, int y, int player) {
+    public boolean set_and_check(int x, int y, int player) {//sets the found coordinate to current player
         matrix[x][y] = player;
         cells_left--;
         return check_one(x, y, 0, 1, player) //syd
@@ -74,10 +74,10 @@ public class Grid {
                 || check_one(x, y, 1, 1, player);//sydøst
     }
 
-    public boolean draw_game() {
+    public boolean draw_game() {//checks for draw game
         return cells_left == 0;
     }
-
+    //checks in one direction for 4 connected current player dots
     private boolean check_one(int x, int y, int dx, int dy, int player) {
         int count = 0;
         int tempx = x;
@@ -97,7 +97,9 @@ public class Grid {
     }
 
     private boolean valid(int x, int y) {
-        return x >= 0 && x < xsize && y >= 0 && y < ysize; //if the bounds are set to be >0 only then first row and collumn doesnt work
+        //if the bounds are set to be >0 only then first row and collumn 
+        //doesnt work
+        return x >= 0 && x < xsize && y >= 0 && y < ysize; 
     }
 
     public int changeplayer(int player, int max_players) {
