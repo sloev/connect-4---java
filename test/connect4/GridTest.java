@@ -126,7 +126,7 @@ public class GridTest {
                 }
             }
         }
-        
+
         boolean expResult = true;
         boolean result = win;
         assertEquals(expResult, result);

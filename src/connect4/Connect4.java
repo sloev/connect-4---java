@@ -4,32 +4,31 @@
  */
 package connect4;
 
-import java.util.Scanner;
+import java.util.*;
 
-/**
- *
- * @author jgjpro
- */
 public class Connect4 {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         int state = 0;
-        int max_players = 2;
-        int player = 1;
+        int max_players = 2; //could be set to n
+        int player = 1; //player 1 allways starts
 
-        Grid grid = new Grid();
+        Grid grid = new Grid(); //new instance of grid
 
-        Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in); //used to hold user inputs
 
-        while (state != -1) {
+        while (state != -1) {//checks if program is in quitting stage
             switch (state) {
                 case 0:
                     System.out.println("player " + player + "'s turn");
                     grid.display();
-                    int x = input.nextInt();
+                    int x = 0;
+                    try {
+                        x = input.nextInt();
+                    } catch (Exception exc) {
+                        System.out.println("not a number between 1 and " + grid.get_xsize());
+                        input.nextLine();
+                    }
                     if (x > 0 && x < grid.get_xsize() + 1) {
                         x--;
                         int y = grid.find_y(x);
@@ -44,46 +43,42 @@ public class Connect4 {
                         } else {
                             System.out.println("collumn filled");
                         }
-                    } else {
-                        System.out.println("number must be > 0 < " + (grid.get_xsize() + 1));
                     }
-
                     break;
                 case 1:
-
                     grid.display();
-                    if (grid.draw_game()) {
-                    } else {
-                        System.out.println("\nwinner is player " + player
-                                + "\nPlay again?\n"
-                                + "press 0 for new game\n"
-                                + "press anything else to quit");
-                    }
-                    if (input.nextInt() == 0) {
-                        state = 0;
-                        grid = new Grid();
-                        player = 1;
-                    } else {
-                        state = -1;
-                    }
-
-                    break;
-                case 2:
-
-                    grid.display();
-                    System.out.println("\ndraw game"
+                    System.out.println("\nwinner is player " + player
                             + "\nPlay again?\n"
                             + "press 0 for new game\n"
                             + "press anything else to quit");
-
-                    if (input.nextInt() == 0) {
+                    int choice = -1;
+                    try {
+                        choice = input.nextInt();
+                    } catch (Exception exc) {
+                        System.out.println("Quitting");
+                        state = -1;
+                    }
+                    if (choice == 0) {
+                        state = 0;
+                        grid = new Grid();
+                        player = 1;
+                    }
+                    break;
+                case 2:
+                    grid.display();
+                    System.out.println(
+                            "\ndraw game"
+                            + "\nPlay again?\n"
+                            + "press 0 for new game\n"
+                            + "press anything else to quit");
+                    if (input.nextInt()
+                            == 0) {
                         state = 0;
                         grid = new Grid();
                         player = 1;
                     } else {
                         state = -1;
                     }
-
                     break;
             }
         }
