@@ -10,7 +10,7 @@ public class Connect4 {
 
     public static void main(String[] args) {
         int state = 0;
-        int max_players = 2; //could be set to n
+        int max_players = 4; //could be set to n
         int player = 1; //player 1 allways starts
 
         Grid grid = new Grid(); //new instance of grid
