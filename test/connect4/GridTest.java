@@ -9,6 +9,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 
+/**
+ *
+ * @author jgjpro
+ */
 public class GridTest {
 
     public GridTest() {
@@ -23,14 +27,37 @@ public class GridTest {
     }
 
     /**
+     * Test of get_cells_left method, of class Grid.
+     */
+    @Test
+    public void testGet_cells_left() {
+        System.out.println("get_cells_left");
+        Grid instance = new Grid();
+        int expResult = 7 * 6;
+        int result = instance.get_cells_left();
+    }
+
+    /**
      * Test of get_xsize method, of class Grid.
      */
     @Test
     public void testGet_xsize() {
         System.out.println("get_xsize");
         Grid instance = new Grid();
-        int expResult = 6;
+        int expResult = 7;
         int result = instance.get_xsize();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of get_ysize method, of class Grid.
+     */
+    @Test
+    public void testGet_ysize() {
+        System.out.println("get_ysize");
+        Grid instance = new Grid();
+        int expResult = 6;
+        int result = instance.get_ysize();
         assertEquals(expResult, result);
     }
 
@@ -42,123 +69,8 @@ public class GridTest {
         System.out.println("find_y");
         int x = 0;
         Grid instance = new Grid();
-        int expResult = 6;//ysize is 7 but the array address is 6
+        int expResult = instance.get_ysize() - 1;
         int result = instance.find_y(x);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of set_and_check method with diagonal win, of class Grid.
-     */
-    @Test
-    public void testSet_and_check_diagonal() {
-        System.out.println("set_and_check - diagonal");
-
-        Grid instance = new Grid();
-
-        int player = 1;
-        boolean win = false;
-
-        while (!win) {
-            for (int i = 0; i < 5; i++) {
-                win = instance.set_and_check(i, instance.find_y(i), player);
-                player = instance.changeplayer(player, 2);
-                if (win) {
-                    break;
-                }
-            }
-        }
-        boolean expResult = true;
-        boolean result = win;
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of set_and_check method with horizontal win, of class Grid.
-     */
-    @Test
-    public void testSet_and_check_horizontal() {
-        System.out.println("set_and_check - horizontal");
-        int player = 1;
-        int xsize = 6;
-        int ysize = 7;
-        Grid instance = new Grid();
-        boolean win = false;
-
-        for (int i = 0; i < xsize && !win; i++) {
-            for (int u = 0; u < 2; u++) {
-                win = instance.set_and_check(i, instance.find_y(i), player);
-                player = instance.changeplayer(player, 2);
-
-                if (win) {
-                    break;
-                }
-            }
-        }
-        boolean expResult = true;
-        boolean result = win;
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of set_and_check method with vertical win, of class Grid.
-     */
-    @Test
-    public void testSet_and_check_vertical() {
-        System.out.println("set_and_check - vertical");
-        int xsize = 6;
-        int ysize = 7;
-        int player = 1;
-        Grid instance = new Grid();
-        boolean win = false;
-        while (!win) {
-            for (int i = 0; i < xsize; i++) {
-                win = instance.set_and_check(i, instance.find_y(i), player);
-                player = instance.changeplayer(player, 2);
-                if (win) {
-                    break;
-                }
-            }
-        }
-
-        boolean expResult = true;
-        boolean result = win;
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of draw_game method, of class Grid.
-     */
-    @Test
-    public void testDraw_game() {
-        System.out.println("draw_game");
-
-        int player = 1;
-        int xsize = 6;
-        int ysize = 7;
-        boolean win = false;
-        Grid instance = new Grid();
-        for (int i = 0; i < xsize; i++) {
-            for (int j = 0; j < ysize; j++) {
-                win = instance.set_and_check(i, instance.find_y(i), player);
-                player = instance.changeplayer(player, 2);
-                if (win) {
-                    break;
-                }
-            }
-            ysize--;
-        }
-        for (int i = 0; i < xsize; i++) {
-            while (instance.find_y(i) != -1) {
-                win = instance.set_and_check(i, instance.find_y(i), player);
-                player = instance.changeplayer(player, 2);
-                if (win) {
-                    break;
-                }
-            }
-        }
-        boolean expResult = true;
-        boolean result = instance.draw_game();
         assertEquals(expResult, result);
     }
 
@@ -171,7 +83,6 @@ public class GridTest {
         int player = 1;
         int max_players = 2;
         Grid instance = new Grid();
-
         int expResult = 2;
         int result = instance.changeplayer(player, max_players);
         assertEquals(expResult, result);

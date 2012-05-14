@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package connect4;
 
 import java.util.*;
@@ -12,8 +8,10 @@ public class Connect4 {
         int state = 0;
         int max_players = 2; //could be set to n
         int player = 1; //player 1 allways starts
+
         Grid grid = new Grid(); //new instance of grid
         cliDisplay clidisplay = new cliDisplay(grid.get_xsize(), grid.get_ysize());//making a clidisplay 
+        logic Logic = new logic(grid.get_cells_left(), grid.get_xsize(), grid.get_ysize(), grid); //create game logic
 
         Scanner input = new Scanner(System.in); //used to hold user inputs
 
@@ -39,9 +37,9 @@ public class Connect4 {
                         int y = grid.find_y(x);//check for space in collumn
                         if (y != -1) {
                             //sets a place to current player
-                            if (grid.set_and_check(x, y, player)) {
+                            if (Logic.set_and_check(x, y, player)) {
                                 state = 1;
-                            } else if (grid.draw_game()) {//checks for drawgame
+                            } else if (Logic.draw_game()) {//checks for drawgame
                                 state = 2;
                             } else {
                                 //change player
@@ -68,6 +66,7 @@ public class Connect4 {
                     if (choice == 0) {
                         state = 0;
                         grid = new Grid();
+                        Logic = new logic(grid.get_cells_left(), grid.get_xsize(), grid.get_ysize(), grid); //create game logic
                         player = 1;
                     }
                     break;
@@ -77,7 +76,7 @@ public class Connect4 {
                             "\ndraw game"
                             + "\nPlay again?\n"
                             + "press 0 for new game\n"
-                            + "press anything else to quit");
+                            + "press a letter to quit");
                     choice = -1;
                     try {//checks for user input == int == 0
                         choice = input.nextInt();
@@ -88,6 +87,7 @@ public class Connect4 {
                     if (choice == 0) {
                         state = 0;
                         grid = new Grid();
+                        Logic = new logic(grid.get_cells_left(), grid.get_xsize(), grid.get_ysize(), grid); //create game logic
                         player = 1;
                     }
                     break;
