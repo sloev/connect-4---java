@@ -17,8 +17,8 @@ public class Grid {
     int cells_left = 0;
 
     public Grid() {
-        xsize = 6;
-        ysize = 7;
+        xsize = 7;
+        ysize = 6;
         max = 4;
 
         matrix = new int[xsize][ysize];
@@ -29,9 +29,17 @@ public class Grid {
             }
         }
     }
+    //methods to gain access to internal private data
+    public int[][] get_matrix() {
+        return matrix;
+    }
 
     public int get_xsize() {//returns the xsize
         return xsize;
+    }
+
+    public int get_ysize() {//returns the xsize
+        return ysize;
     }
 
     public void display() {//prints out the matrix board
@@ -68,9 +76,6 @@ public class Grid {
         return check_one(x, y, 0, 1, player) //syd
                 || check_one(x, y, -1, 1, player) //sydvest
                 || check_one(x, y, -1, 0, player) //vest
-                || check_one(x, y, -1, -1, player) //nordvest
-                || check_one(x, y, 1, -1, player) //nordøst
-                || check_one(x, y, 1, 0, player) //øst
                 || check_one(x, y, 1, 1, player);//sydøst
     }
 
@@ -78,6 +83,7 @@ public class Grid {
         return cells_left == 0;
     }
     //checks in one direction for 4 connected current player dots
+
     private boolean check_one(int x, int y, int dx, int dy, int player) {
         int count = 0;
         int tempx = x;
@@ -92,6 +98,17 @@ public class Grid {
             tempy += dy;
             count++;
         }
+        tempx = x - dx;
+        tempy = y - dy;
+        while (count < max && valid(tempx, tempy)) {
+            if (matrix[tempx][tempy] != player) {
+                break;
+
+            }
+            tempx -= dx;
+            tempy -= dy;
+            count++;
+        }
 
         return count == max;
     }
@@ -99,7 +116,7 @@ public class Grid {
     private boolean valid(int x, int y) {
         //if the bounds are set to be >0 only then first row and collumn 
         //doesnt work
-        return x >= 0 && x < xsize && y >= 0 && y < ysize; 
+        return x >= 0 && x < xsize && y >= 0 && y < ysize;
     }
 
     public int changeplayer(int player, int max_players) {

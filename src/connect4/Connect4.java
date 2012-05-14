@@ -10,10 +10,10 @@ public class Connect4 {
 
     public static void main(String[] args) {
         int state = 0;
-        int max_players = 4; //could be set to n
+        int max_players = 2; //could be set to n
         int player = 1; //player 1 allways starts
-
         Grid grid = new Grid(); //new instance of grid
+        cliDisplay clidisplay = new cliDisplay(grid.get_xsize(), grid.get_ysize());//making a clidisplay 
 
         Scanner input = new Scanner(System.in); //used to hold user inputs
 
@@ -21,7 +21,7 @@ public class Connect4 {
             switch (state) {
                 case 0:
                     System.out.println("player " + player + "'s turn");
-                    grid.display();//print out the grid
+                    clidisplay.display(grid.get_matrix());//print out the grid
                     int x = 0;// xposition is set to 0 before taking user input
                     try {// tries to do get an int from the user
                         x = input.nextInt();
@@ -29,7 +29,7 @@ public class Connect4 {
                             throw new Exception();
                         }
                     } catch (Exception exc) {
-                        System.out.println("not a number between 1 and " 
+                        System.out.println("not a number between 1 and "
                                 + grid.get_xsize());
                         input.nextLine();
                     }
@@ -53,7 +53,7 @@ public class Connect4 {
                     }
                     break;
                 case 1://prints endgame with winner
-                    grid.display();
+                    clidisplay.display(grid.get_matrix());//print out the grid
                     System.out.println("\nwinner is player " + player
                             + "\nPlay again?\n"
                             + "press 0 for new game\n"
@@ -72,7 +72,7 @@ public class Connect4 {
                     }
                     break;
                 case 2://prints end game eith draw game
-                    grid.display();
+                    clidisplay.display(grid.get_matrix());//print out the grid
                     System.out.println(
                             "\ndraw game"
                             + "\nPlay again?\n"
