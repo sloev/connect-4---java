@@ -13,11 +13,14 @@ public class Connect4 {
         cliDisplay clidisplay = new cliDisplay(grid.get_xsize(), grid.get_ysize());//making a clidisplay 
         logic Logic = new logic(grid.get_cells_left(), grid.get_xsize(), grid.get_ysize(), grid); //create game logic
 
+        guiDisplay gui = new guiDisplay(grid.get_xsize(), grid.get_ysize(), grid);
         Scanner input = new Scanner(System.in); //used to hold user inputs
+
 
         while (state != -1) {//checks if program is in quitting stage
             switch (state) {
                 case 0:
+
                     System.out.println("player " + player + "'s turn");
                     clidisplay.display(grid.get_matrix());//print out the grid
                     int x = 0;// xposition is set to 0 before taking user input
@@ -49,8 +52,12 @@ public class Connect4 {
                             System.out.println("collumn filled");
                         }
                     }
+                    gui.paint(null);
+                    System.out.println("test");
                     break;
                 case 1://prints endgame with winner
+
+
                     clidisplay.display(grid.get_matrix());//print out the grid
                     System.out.println("\nwinner is player " + player
                             + "\nPlay again?\n"

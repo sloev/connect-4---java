@@ -35,6 +35,7 @@ public class GridTest {
         Grid instance = new Grid();
         int expResult = 7 * 6;
         int result = instance.get_cells_left();
+        assertEquals(expResult, result);
     }
 
     /**

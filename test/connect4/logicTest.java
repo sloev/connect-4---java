@@ -36,8 +36,7 @@ public class logicTest {
         int y = 0;
         int player = 1;
         Grid tempGrid = new Grid();
-        logic instance = new logic(tempGrid.get_cells_left(), tempGrid.get_xsize(), tempGrid.get_ysize());
-        instance.update_logic_matrix(tempGrid.get_matrix());
+        logic instance = new logic(tempGrid.get_cells_left(), tempGrid.get_xsize(), tempGrid.get_ysize(), tempGrid);
         boolean expResult = false;
         boolean result = instance.set_and_check(x, y, player);
         assertEquals(expResult, result);
@@ -49,34 +48,37 @@ public class logicTest {
     @Test
     public void testDraw_game() {
         System.out.println("draw_game");
-        boolean win = false;
+        //     boolean win = false;
         int player = 1;
         int xsize = 7;
         int ysize = 6;
 
         Grid tempGrid = new Grid();
-        logic instance = new logic(tempGrid.get_cells_left(), tempGrid.get_xsize(), tempGrid.get_ysize());
-        instance.update_logic_matrix(tempGrid.get_matrix());
+        logic instance = new logic(tempGrid.get_cells_left(), tempGrid.get_xsize(), tempGrid.get_ysize(), tempGrid);
 
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {
-                win = instance.set_and_check(i, tempGrid.find_y(i), player);
-                player = tempGrid.changeplayer(player, 2);
-                if (win) {
+                if (instance.set_and_check(i, tempGrid.find_y(i), player)) {
+                    player = tempGrid.changeplayer(player, 2);
                     break;
+                } else {
+                    player = tempGrid.changeplayer(player, 2);
                 }
             }
             ysize--;
         }
+
         for (int i = 0; i < xsize; i++) {
             while (tempGrid.find_y(i) != -1) {
-                win = instance.set_and_check(i, tempGrid.find_y(i), player);
-                player = tempGrid.changeplayer(player, 2);
-                if (win) {
+                if (instance.set_and_check(i, tempGrid.find_y(i), player)) {
+                    player = tempGrid.changeplayer(player, 2);
                     break;
+                } else {
+                    player = tempGrid.changeplayer(player, 2);
                 }
             }
         }
+
         boolean expResult = true;
         boolean result = instance.draw_game();
         assertEquals(expResult, result);
