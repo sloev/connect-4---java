@@ -31,11 +31,10 @@ public class gui {
         slots = new JLabel[xsize][ysize];
         buttons = new JButton[xsize];
 
-
-        for (int row = 0; row < xsize; row++) {
-            buttons[row] = new JButton("" + (row + 1));
-            buttons[row].setActionCommand("" + row);
-            buttons[row].addActionListener(
+        for (int i = 0; i < xsize; i++) {
+            buttons[i] = new JButton("" + (i + 1));
+            buttons[i].setActionCommand("" + i);
+            buttons[i].addActionListener(
                     new ActionListener() {
 
                         public void actionPerformed(ActionEvent e) {
@@ -55,13 +54,14 @@ public class gui {
                             } else {
                                 System.out.println("collumn filled");
                             }
-                            buttonPressProcessed = true;
-
                         }
                     });
-            panel.add(buttons[row]);
+            panel.add(buttons[i]);
+        }
+        for (int column = 0; column < ysize; column++) {
 
-            for (int column = 0; column < ysize; column++) {
+            for (int row = 0; row < xsize; row++) {
+
 
                 slots[row][column] = new JLabel();
                 slots[row][column].setHorizontalAlignment(SwingConstants.CENTER);
