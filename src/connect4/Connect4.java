@@ -23,14 +23,18 @@ public class Connect4 {
                         break;
                     case 1://endgame with winner
                         Gui.showWon();
-                        if (Gui.getNewGame()) {
+                        if (Gui.getQuit()) {
+                            state = -1;
+                        } else  if (Gui.getNewGame()) {
                             Gui = new gui();
                             state = 0;
                         }
                         break;
                     case 2://endgame with drawgame
                         Gui.showDraw();
-                        if (Gui.getNewGame()) {
+                        if (Gui.getQuit()) {
+                            state = -1;
+                        } else if (Gui.getNewGame()) {
                             Gui = new gui();
                             state = 0;
                         }
