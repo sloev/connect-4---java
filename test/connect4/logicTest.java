@@ -36,7 +36,7 @@ public class logicTest {
         int y = 0;
         int player = 1;
         Grid tempGrid = new Grid();
-        logic instance = new logic(tempGrid.get_cells_left(), tempGrid.get_xsize(), tempGrid.get_ysize(), tempGrid);
+        logic instance = new logic(tempGrid);
         boolean expResult = false;
         boolean result = instance.set_and_check(x, y, player);
         assertEquals(expResult, result);
@@ -54,7 +54,7 @@ public class logicTest {
         int ysize = 6;
 
         Grid tempGrid = new Grid();
-        logic instance = new logic(tempGrid.get_cells_left(), tempGrid.get_xsize(), tempGrid.get_ysize(), tempGrid);
+        logic instance = new logic(tempGrid);
 
         for (int i = 0; i < xsize; i++) {
             for (int j = 0; j < ysize; j++) {

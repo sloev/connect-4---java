@@ -7,6 +7,7 @@ import java.awt.event.*;
 
 public class gui {
     //declaration of gui objects
+
     private JFrame frame;
     private JLabel[][] slots;
     private JButton[] buttons;
@@ -43,7 +44,6 @@ public class gui {
                             int a = Integer.parseInt(e.getActionCommand());
                             int y = my_grid.find_y(a);//check for space in collumn
                             if (y != -1) {
-                                System.out.print("\t" + y);
                                 //sets a place to current player
                                 if (my_logic.set_and_check(a, y, currentPlayer)) {
                                     hasWon = true;
@@ -55,7 +55,7 @@ public class gui {
                                     frame.setTitle("connect four - player " + currentPlayer + "'s turn");
                                 }
                             } else {
-                                System.out.println("collumn filled");
+                                JOptionPane.showMessageDialog(null, "choose another one", "column is filled", JOptionPane.INFORMATION_MESSAGE);
                             }
                         }
                     });
@@ -69,7 +69,7 @@ public class gui {
                 panel.add(slots[row][column]);
             }
         }
-        
+
         //jframe stuff
         frame.setContentPane(panel);
         frame.setSize(
