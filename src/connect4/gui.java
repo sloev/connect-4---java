@@ -6,18 +6,22 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class gui {
-
+    //declaration of gui objects
     private JFrame frame;
     private JLabel[][] slots;
     private JButton[] buttons;
+    //variables used in grid
     private int xsize = 7;
     private int ysize = 6;
     private int currentPlayer = 1;
+    //game variables to communicate with top program
     private boolean hasWon = false;
     private boolean hasDraw = false;
-
+    private boolean quit = false;
+    private boolean newGame = false;
+    //making of grid and logic
     Grid my_grid = new Grid();
-    logic my_logic = new logic(my_grid.get_cells_left(), my_grid.get_xsize(), my_grid.get_ysize(), my_grid); //create game logic
+    logic my_logic = new logic(my_grid); //create game logic
 
     public gui() {
 
@@ -48,6 +52,7 @@ public class gui {
                                 } else {
                                     //change player
                                     currentPlayer = my_grid.changeplayer(currentPlayer, 2);
+                                    frame.setTitle("connect four - player " + currentPlayer + "'s turn");
                                 }
                             } else {
                                 System.out.println("collumn filled");
@@ -57,28 +62,25 @@ public class gui {
             panel.add(buttons[i]);
         }
         for (int column = 0; column < ysize; column++) {
-
             for (int row = 0; row < xsize; row++) {
-
-
                 slots[row][column] = new JLabel();
                 slots[row][column].setHorizontalAlignment(SwingConstants.CENTER);
                 slots[row][column].setBorder(new LineBorder(Color.black));
                 panel.add(slots[row][column]);
-
             }
         }
-
+        
+        //jframe stuff
         frame.setContentPane(panel);
-
         frame.setSize(
                 700, 600);
         frame.setVisible(
                 true);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void updateBoard() {
+    public void updateBoard() {//keeps the gui in sync with the logggggtjiic and grid
         for (int row = 0; row < xsize; row++) {
             for (int column = 0; column < ysize; column++) {
                 if (my_grid.matrix_equals(row, column, 1)) {
@@ -91,8 +93,38 @@ public class gui {
                 }
             }
         }
+    }
 
+    public void showWon() {
+        String winner = "player " + currentPlayer + " wins";
+        int n = JOptionPane.showConfirmDialog(
+                frame,
+                "new game?",
+                winner,
+                JOptionPane.YES_NO_OPTION);
+        if (n < 1) {
+            frame.dispose();
+            newGame = true;
+        } else {
+            frame.dispose();
+            quit = true;
+        }
+    }
 
+    public void showDraw() {
+        String winner = "draw game";
+        int n = JOptionPane.showConfirmDialog(
+                frame,
+                "new game?",
+                winner,
+                JOptionPane.YES_NO_OPTION);
+        if (n < 1) {
+            frame.dispose();
+            newGame = true;
+        } else {
+            frame.dispose();
+            quit = true;
+        }
     }
 
     public boolean getHasWon() {
@@ -101,6 +133,14 @@ public class gui {
 
     public boolean getHasDraw() {
         return hasDraw;
+    }
+
+    public boolean getQuit() {
+        return quit;
+    }
+
+    public boolean getNewGame() {
+        return newGame;
     }
 
     public static void main(String[] args) {

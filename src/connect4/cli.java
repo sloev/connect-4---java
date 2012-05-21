@@ -14,17 +14,20 @@ import java.util.*;
  * @author jgjpro
  */
 public class cli {
-
+    //input scanner to get user input
+    Scanner input = new Scanner(System.in); 
+    //variables used in grid
     private int xsize = 7;
     private int ysize = 6;
     private int currentPlayer = 1;
+    //game variables to communicate with top program
     private boolean hasWon = false;
     private boolean hasDraw = false;
     private boolean quit = false;
     private boolean newGame = false;
-    Scanner input = new Scanner(System.in); //used to hold user inputs
+    //making of grid and logic
     Grid my_grid = new Grid();
-    logic my_logic = new logic(my_grid.get_cells_left(), my_grid.get_xsize(), my_grid.get_ysize(), my_grid); //create game logic
+    logic my_logic = new logic(my_grid); //create game logic
 
     public cli() {
     }
@@ -63,7 +66,7 @@ public class cli {
         }
     }
 
-    public void winEnding() {
+    public void showWin() {//prints to terminal when a player wins
 
         display();//print out the grid
         System.out.println("\nwinner is player " + currentPlayer
@@ -82,7 +85,7 @@ public class cli {
         }
     }
 
-    public void drawEnding() {
+    public void showDraw() {
         display();//print out the grid
         System.out.println(
                 "\ndraw game"
