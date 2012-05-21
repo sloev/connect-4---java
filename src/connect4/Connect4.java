@@ -1,26 +1,13 @@
 package connect4;
 
-import java.util.*;
-
 public class Connect4 {
 
     public static void main(String[] args) {
         int state = 0;
-        int max_players = 2; //could be set to n
-        int player = 1; //player 1 allways starts
-
-        Grid grid = new Grid(); //new instance of grid
-        cliDisplay clidisplay = new cliDisplay(grid.get_xsize(), grid.get_ysize());//making a clidisplay 
-        logic Logic = new logic(grid.get_cells_left(), grid.get_xsize(), grid.get_ysize(), grid); //create game logic
-
-        // guiDisplay gui = new guiDisplay(grid);
-        Scanner input = new Scanner(System.in); //used to hold user inputs
-
-        gui Gui = new gui();
-
-        boolean useGui = true;
+        boolean useGui = false;
 
         if (useGui) {
+            gui Gui = new gui();
             while (state != -1) {
                 switch (state) {
                     case 0://runtime
@@ -38,83 +25,33 @@ public class Connect4 {
                 }
             }
         } else {
+            cli Cli = new cli();
             while (state != -1) {//checks if program is in quitting stage
                 switch (state) {
                     case 0:
-                        System.out.println("player " + player + "'s turn");
-                        clidisplay.display(grid.get_matrix());//print out the grid
-                        int x = 0;// xposition is set to 0 before taking user input
-                        try {// tries to do get an int from the user
-                            x = input.nextInt();
-                            if (x <= 0 || x > grid.get_xsize()) {
-                                throw new Exception();
-                            }
-                        } catch (Exception exc) {
-                            System.out.println("not a number between 1 and "
-                                    + grid.get_xsize());
-                            input.nextLine();
+                        Cli.runtime();
+                        if (Cli.getHasWon()) {
+                            state = 1;
+                        } else if (Cli.getHasDraw()) {
+                            state = 2;
                         }
-                        //checks if user input is within range
-                        if (x > 0 && x < grid.get_xsize() + 1) {
-                            x--;
-                            int y = grid.find_y(x);//check for space in collumn
-                            if (y != -1) {
-                                //sets a place to current player
-                                if (Logic.set_and_check(x, y, player)) {
-                                    state = 1;
-                                } else if (Logic.draw_game()) {//checks for drawgame
-                                    state = 2;
-                                } else {
-                                    //change player
-                                    player = grid.changeplayer(player, max_players);
-                                }
-                            } else {
-                                System.out.println("collumn filled");
-                            }
-                        }
-                        System.out.println("test");
                         break;
                     case 1://prints endgame with winner
-
-
-                        clidisplay.display(grid.get_matrix());//print out the grid
-                        System.out.println("\nwinner is player " + player
-                                + "\nPlay again?\n"
-                                + "press 0 for new game\n"
-                                + "press anything else to quit");
-                        int choice = -1;
-                        try {//checks for user input == int == 0
-                            choice = input.nextInt();
-                        } catch (Exception exc) {
-                            System.out.println("Quitting");
+                        Cli.winEnding();
+                        if (Cli.getQuit()) {
                             state = -1;
-                        }
-                        if (choice == 0) {
+                        } else if (Cli.getNewGame()) {
+                            Cli = new cli();
                             state = 0;
-                            grid = new Grid();
-                            Logic = new logic(grid.get_cells_left(), grid.get_xsize(), grid.get_ysize(), grid); //create game logic
-                            player = 1;
                         }
                         break;
                     case 2://prints end game eith draw game
-                        clidisplay.display(grid.get_matrix());//print out the grid
-                        System.out.println(
-                                "\ndraw game"
-                                + "\nPlay again?\n"
-                                + "press 0 for new game\n"
-                                + "press a letter to quit");
-                        choice = -1;
-                        try {//checks for user input == int == 0
-                            choice = input.nextInt();
-                        } catch (Exception exc) {
-                            System.out.println("Quitting");
+                        Cli.drawEnding();
+                        if (Cli.getQuit()) {
                             state = -1;
-                        }
-                        if (choice == 0) {
+                        } else if (Cli.getNewGame()) {
+                            Cli = new cli();
                             state = 0;
-                            grid = new Grid();
-                            Logic = new logic(grid.get_cells_left(), grid.get_xsize(), grid.get_ysize(), grid); //create game logic
-                            player = 1;
                         }
                         break;
                 }

@@ -15,9 +15,7 @@ public class gui {
     private int currentPlayer = 1;
     private boolean hasWon = false;
     private boolean hasDraw = false;
-    //variables used for taking input
-    private int presentColumn = 0;
-    private boolean buttonPressProcessed = true;
+
     Grid my_grid = new Grid();
     logic my_logic = new logic(my_grid.get_cells_left(), my_grid.get_xsize(), my_grid.get_ysize(), my_grid); //create game logic
 
